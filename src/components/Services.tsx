@@ -1,11 +1,11 @@
 
-import { DesignPenLine, MonitorSmartphone, Code, MessageSquare, Palette, Tv } from "lucide-react";
+import { PenLine, MonitorSmartphone, Code, MessageSquare, Palette, Tv } from "lucide-react";
 
 const Services = () => {
   const services = [
     {
       title: "UI Design",
-      icon: <DesignPenLine className="h-8 w-8" />,
+      icon: <PenLine className="h-8 w-8" />,
       description: "User interfaces that are intuitive, visually stunning, and engineered for engagement."
     },
     {
