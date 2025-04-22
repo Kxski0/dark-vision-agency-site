@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { PenLine, MonitorSmartphone, Code, MessageSquare, Palette, Tv } from "lucide-react";
 
@@ -45,9 +46,23 @@ const Services = () => {
   const [openedIdx, setOpenedIdx] = useState<number | null>(null);
 
   return (
-    <section id="services" className="py-20 md:py-32 relative bg-gradient-to-b from-dark to-black/90">
-      <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-turquoise/10 rounded-full filter blur-[120px]"></div>
-      <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-lime/10 rounded-full filter blur-[120px]"></div>
+    <section id="services" className="py-20 md:py-32 relative bg-gradient-to-b from-dark to-black/90 overflow-hidden">
+      {/* Animierte Hintergrundlichter */}
+      <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-turquoise/10 rounded-full filter blur-[120px] pointer-events-none animate-[float_7s_ease-in-out_infinite]"></div>
+      <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-lime/10 rounded-full filter blur-[120px] pointer-events-none animate-[float_reverse_8s_ease-in-out_infinite]"></div>
+      {/* Eigene Keyframes für die Animation */}
+      <style>
+        {`
+        @keyframes float {
+          0%, 100% { transform: translateY(0) translateX(0); }
+          50% { transform: translateY(-30px) translateX(20px); }
+        }
+        @keyframes float_reverse {
+          0%, 100% { transform: translateY(0) translateX(0); }
+          50% { transform: translateY(30px) translateX(-20px); }
+        }
+        `}
+      </style>
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-16">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">
@@ -62,18 +77,18 @@ const Services = () => {
             <div 
               key={index} 
               className="relative group"
+              onMouseEnter={() => {
+                if (!isTouch) setOpenedIdx(index);
+              }}
+              onMouseLeave={() => {
+                if (!isTouch) setOpenedIdx(null);
+              }}
+              onClick={() => {
+                if (isTouch) setOpenedIdx(openedIdx === index ? null : index);
+              }}
             >
               <div
                 className="bg-black/20 backdrop-blur-sm rounded-2xl p-8 border border-white/5 hover:border-turquoise/50 transition-all duration-300 hover:translate-y-[-5px] cursor-pointer relative"
-                onMouseEnter={() => {
-                  if (!isTouch) setOpenedIdx(index);
-                }}
-                onMouseLeave={() => {
-                  if (!isTouch) setOpenedIdx(null);
-                }}
-                onClick={() => {
-                  if (isTouch) setOpenedIdx(openedIdx === index ? null : index);
-                }}
               >
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br from-muted to-muted/50 mb-6 group-hover:from-turquoise/20 group-hover:to-magenta/20 transition-all duration-300">
                   <div className="text-foreground/80 group-hover:text-turquoise transition-colors duration-300">
@@ -82,18 +97,21 @@ const Services = () => {
                 </div>
                 <h3 className="text-xl font-bold mb-3">{service.title}</h3>
                 <p className="text-foreground/70">{service.description}</p>
-
-                <div
-                  className={`
-                    absolute left-0 right-0 z-20 mt-4 
-                    ${openedIdx === index ? "opacity-100" : "opacity-0"}
-                    transition-opacity duration-300 ease-in-out
-                  `}
-                >
-                  <div className="bg-black/90 border border-turquoise/20 rounded-xl text-foreground p-4 shadow-lg">
-                    <h4 className="font-bold text-lg mb-2 text-turquoise">{service.title}</h4>
-                    <p>{service.details}</p>
-                  </div>
+              </div>
+              {/* Popup-Box für Details: Sofort sichtbar bei Hover & klar darunter positioniert */}
+              <div
+                className={`
+                  absolute left-0 right-0 z-20
+                  ${openedIdx === index ? "" : "hidden"}
+                `}
+                style={{
+                  top: "100%",
+                  marginTop: "12px"
+                }}
+              >
+                <div className="bg-black/90 border border-turquoise/20 rounded-xl text-foreground p-4 shadow-lg animate-fade-in">
+                  <h4 className="font-bold text-lg mb-2 text-turquoise">{service.title}</h4>
+                  <p>{service.details}</p>
                 </div>
               </div>
             </div>
@@ -105,3 +123,4 @@ const Services = () => {
 };
 
 export default Services;
+
