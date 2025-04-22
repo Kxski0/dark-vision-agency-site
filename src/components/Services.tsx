@@ -70,21 +70,29 @@ const Services = () => {
   }, []);
 
   return (
-    // KEIN schwarzer overlay-Gradient mehr, sodass Glow sichtbar ist!
     <section id="services" className="py-20 md:py-32 relative overflow-hidden bg-dark">
-      {/* Animierte Hintergrund-Lichter */}
-      <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-turquoise/15 rounded-full filter blur-[120px] pointer-events-none animate-[float_7s_ease-in-out_infinite]"></div>
-      <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-lime/15 rounded-full filter blur-[120px] pointer-events-none animate-[float_reverse_8s_ease-in-out_infinite]"></div>
-      {/* Animation Keyframes */}
+      {/* Animierte Hintergrund-Lichter mit verbesserten Animationen */}
+      <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-turquoise/15 rounded-full filter blur-[120px] pointer-events-none animate-[float_20s_ease-in-out_infinite]"></div>
+      <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-lime/15 rounded-full filter blur-[120px] pointer-events-none animate-[float_reverse_25s_ease-in-out_infinite]"></div>
+      
+      {/* Zusätzliche bewegte Lichter für mehr Animation */}
+      <div className="absolute top-1/3 left-1/4 w-1/4 h-1/4 bg-magenta/10 rounded-full filter blur-[150px] pointer-events-none animate-[float_15s_ease-in-out_infinite_3s]"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-1/5 h-1/5 bg-turquoise/10 rounded-full filter blur-[100px] pointer-events-none animate-[float_reverse_18s_ease-in-out_infinite_5s]"></div>
+      
+      {/* Verbesserte Animation Keyframes */}
       <style>
         {`
         @keyframes float {
           0%, 100% { transform: translateY(0) translateX(0); }
-          50% { transform: translateY(-30px) translateX(20px); }
+          25% { transform: translateY(-40px) translateX(30px); }
+          50% { transform: translateY(-80px) translateX(10px); }
+          75% { transform: translateY(-30px) translateX(-20px); }
         }
         @keyframes float_reverse {
           0%, 100% { transform: translateY(0) translateX(0); }
-          50% { transform: translateY(30px) translateX(-20px); }
+          25% { transform: translateY(40px) translateX(-30px); }
+          50% { transform: translateY(70px) translateX(-10px); }
+          75% { transform: translateY(30px) translateX(40px); }
         }
         `}
       </style>
@@ -125,11 +133,12 @@ const Services = () => {
                   <h3 className="text-xl font-bold mb-3">{service.title}</h3>
                   <p className="text-foreground/70">{service.description}</p>
                 </div>
-                {/* Popup-Box für Details: Positioniert sich je nach Zeile nach oben oder unten */}
+                {/* Popup-Box für Details: Verbesserte Sichtbarkeit für die letzte Reihe */}
                 <div
                   className={`
                     absolute left-0 right-0 z-30
-                    ${openedIdx === index ? "" : "hidden"}
+                    ${openedIdx === index ? "opacity-100" : "opacity-0 pointer-events-none"}
+                    transition-opacity duration-200 ease-in-out
                   `}
                   style={
                     lastRow
@@ -143,6 +152,8 @@ const Services = () => {
                       textShadow: "0 2px 18px rgba(0,0,0,0.42)",
                       backdropFilter: "blur(6px)",
                       fontSize: 16,
+                      boxShadow: "0 10px 25px rgba(10, 239, 255, 0.15)",
+                      background: "rgba(22, 30, 46, 0.92)"
                     }}
                   >
                     <h4 className="font-bold text-lg mb-2 text-turquoise">{service.title}</h4>
