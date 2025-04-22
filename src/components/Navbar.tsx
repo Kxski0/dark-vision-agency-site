@@ -12,7 +12,6 @@ const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -30,41 +29,38 @@ const Navbar = () => {
             VISION
           </span>
         </a>
-
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8">
           <a href="#" className="text-foreground/80 hover:text-turquoise transition-all">
-            Home
+            Start
           </a>
           <a href="#services" className="text-foreground/80 hover:text-turquoise transition-all">
-            Services
+            Leistungen
           </a>
           <a href="#" className="text-foreground/80 hover:text-turquoise transition-all">
-            Work
+            Portfolio
           </a>
           <a href="#" className="text-foreground/80 hover:text-turquoise transition-all">
-            About
+            Über uns
           </a>
           <Button
             variant="outline"
             className="border-turquoise text-turquoise hover:bg-turquoise hover:text-black transition-all"
           >
-            Contact Us
+            Kontakt
           </Button>
         </div>
-
         {/* Mobile Menu Button */}
         <div className="md:hidden">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="text-foreground hover:text-turquoise transition-colors"
-            aria-label="Toggle menu"
+            aria-label="Menü umschalten"
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
-
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-dark/95 backdrop-blur-lg border-b border-border/50 py-4">
@@ -74,34 +70,34 @@ const Navbar = () => {
               className="text-foreground/80 hover:text-turquoise transition-all"
               onClick={() => setIsMenuOpen(false)}
             >
-              Home
+              Start
             </a>
             <a
               href="#services"
               className="text-foreground/80 hover:text-turquoise transition-all"
               onClick={() => setIsMenuOpen(false)}
             >
-              Services
+              Leistungen
             </a>
             <a
               href="#"
               className="text-foreground/80 hover:text-turquoise transition-all"
               onClick={() => setIsMenuOpen(false)}
             >
-              Work
+              Portfolio
             </a>
             <a
               href="#"
               className="text-foreground/80 hover:text-turquoise transition-all"
               onClick={() => setIsMenuOpen(false)}
             >
-              About
+              Über uns
             </a>
             <Button
               variant="outline"
               className="border-turquoise text-turquoise hover:bg-turquoise hover:text-black transition-all w-full"
             >
-              Contact Us
+              Kontakt
             </Button>
           </div>
         </div>

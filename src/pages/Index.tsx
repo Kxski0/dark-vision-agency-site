@@ -5,6 +5,7 @@ import CoreFeatures from "../components/CoreFeatures";
 import Services from "../components/Services";
 import CallToAction from "../components/CallToAction";
 import Footer from "../components/Footer";
+import NexusChat from "../components/NexusChat";
 
 const Index = () => {
   return (
@@ -15,6 +16,7 @@ const Index = () => {
       <Services />
       <CallToAction />
       <Footer />
+      <NexusChat />
     </div>
   );
 };

@@ -11,7 +11,7 @@ const Footer = () => {
               VISION
             </h3>
             <p className="text-foreground/70 mb-6">
-              We create cutting-edge web experiences that transform businesses and delight users.
+              Wir schaffen zukunftssichere Web-Erlebnisse, die Unternehmen voranbringen und Nutzer begeistern.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-foreground/60 hover:text-turquoise transition-colors">
@@ -30,16 +30,16 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="text-lg font-semibold mb-6">Quick Links</h4>
+            <h4 className="text-lg font-semibold mb-6">Schnellzugriff</h4>
             <ul className="space-y-3">
               <li>
                 <a href="#" className="text-foreground/70 hover:text-turquoise transition-colors">
-                  Home
+                  Start
                 </a>
               </li>
               <li>
                 <a href="#services" className="text-foreground/70 hover:text-turquoise transition-colors">
-                  Services
+                  Leistungen
                 </a>
               </li>
               <li>
@@ -49,19 +49,19 @@ const Footer = () => {
               </li>
               <li>
                 <a href="#" className="text-foreground/70 hover:text-turquoise transition-colors">
-                  About Us
+                  Über uns
                 </a>
               </li>
               <li>
                 <a href="#" className="text-foreground/70 hover:text-turquoise transition-colors">
-                  Contact
+                  Kontakt
                 </a>
               </li>
             </ul>
           </div>
           
           <div>
-            <h4 className="text-lg font-semibold mb-6">Services</h4>
+            <h4 className="text-lg font-semibold mb-6">Leistungen</h4>
             <ul className="space-y-3">
               <li>
                 <a href="#" className="text-foreground/70 hover:text-turquoise transition-colors">
@@ -75,7 +75,7 @@ const Footer = () => {
               </li>
               <li>
                 <a href="#" className="text-foreground/70 hover:text-turquoise transition-colors">
-                  Digital Strategy
+                  Digitale Strategie
                 </a>
               </li>
               <li>
@@ -85,39 +85,38 @@ const Footer = () => {
               </li>
               <li>
                 <a href="#" className="text-foreground/70 hover:text-turquoise transition-colors">
-                  Media Integration
+                  Medienintegration
                 </a>
               </li>
             </ul>
           </div>
           
           <div>
-            <h4 className="text-lg font-semibold mb-6">Contact</h4>
+            <h4 className="text-lg font-semibold mb-6">Kontakt</h4>
             <ul className="space-y-4">
               <li className="flex items-start">
                 <MapPin className="h-5 w-5 mr-3 text-turquoise shrink-0 mt-1" />
                 <span className="text-foreground/70">
-                  123 Design Street, Creative City, 10100
+                  Musterstraße 123, Kreativstadt, 10100
                 </span>
               </li>
               <li className="flex items-center">
                 <Phone className="h-5 w-5 mr-3 text-turquoise" />
                 <span className="text-foreground/70">
-                  +1 (123) 456 7890
+                  +49 (123) 456 7890
                 </span>
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 mr-3 text-turquoise" />
                 <span className="text-foreground/70">
-                  hello@visionagency.com
+                  hallo@visionagentur.de
                 </span>
               </li>
             </ul>
           </div>
         </div>
-        
         <div className="pt-8 border-t border-white/5 text-center text-foreground/50 text-sm">
-          <p>© {new Date().getFullYear()} Vision Web Design Agency. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Vision Webdesign Agentur. Alle Rechte vorbehalten.</p>
         </div>
       </div>
     </footer>
