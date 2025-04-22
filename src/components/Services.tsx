@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { PenLine, MonitorSmartphone, Code, MessageSquare, Palette, Tv } from "lucide-react";
-import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 
 const Services = () => {
   const services = [
@@ -62,17 +61,18 @@ const Services = () => {
           {services.map((service, index) => (
             <div 
               key={index} 
-              className="relative" // Add relative positioning to contain the details
+              className="relative group"
             >
               <div
-                className={
-                  "bg-black/20 backdrop-blur-sm rounded-2xl p-8 border border-white/5 hover:border-turquoise/50 transition-all duration-300 group hover:translate-y-[-5px] cursor-pointer relative"
-                }
-                onClick={() => {
-                  if (isTouch) setOpenedIdx(openedIdx === index ? null : index);
+                className="bg-black/20 backdrop-blur-sm rounded-2xl p-8 border border-white/5 hover:border-turquoise/50 transition-all duration-300 hover:translate-y-[-5px] cursor-pointer relative"
+                onMouseEnter={() => {
+                  if (!isTouch) setOpenedIdx(index);
                 }}
                 onMouseLeave={() => {
-                  if (isTouch) setOpenedIdx(null);
+                  if (!isTouch) setOpenedIdx(null);
+                }}
+                onClick={() => {
+                  if (isTouch) setOpenedIdx(openedIdx === index ? null : index);
                 }}
               >
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br from-muted to-muted/50 mb-6 group-hover:from-turquoise/20 group-hover:to-magenta/20 transition-all duration-300">
@@ -82,13 +82,12 @@ const Services = () => {
                 </div>
                 <h3 className="text-xl font-bold mb-3">{service.title}</h3>
                 <p className="text-foreground/70">{service.description}</p>
-                
-                {/* Detailed description popup - now positioned below */}
+
                 <div
                   className={`
                     absolute left-0 right-0 z-20 mt-4 
-                    ${(!isTouch ? "group-hover:block" : (openedIdx === index ? "block" : "hidden"))}
-                    hidden transition-all 
+                    ${openedIdx === index ? "opacity-100" : "opacity-0"}
+                    transition-opacity duration-300 ease-in-out
                   `}
                 >
                   <div className="bg-black/90 border border-turquoise/20 rounded-xl text-foreground p-4 shadow-lg">
