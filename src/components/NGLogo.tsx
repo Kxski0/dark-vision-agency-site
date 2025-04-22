@@ -1,9 +1,6 @@
 
 import React from "react";
 
-/**
- * Neues NG-Logo mit Leucht-Effekt, passend zur Nexus Generation Farbpalette
- */
 const NGLogo = ({
   className = "",
   size = 40,
