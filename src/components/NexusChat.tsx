@@ -1,13 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Send } from "lucide-react";
 
-// Bot und User als erlaubte Werte ("bot" | "user"), statt string!
+import React, { useState, useRef, useEffect } from "react";
+import { Send, X } from "lucide-react";
+
 type Message = {
   user: "bot" | "user";
   text: string;
 };
 
 const NexusChat = () => {
+  const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       user: "bot",
@@ -18,8 +19,10 @@ const NexusChat = () => {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    if (open) {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages, open]);
 
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +30,6 @@ const NexusChat = () => {
     const question = input;
     setMessages((msgs) => [...msgs, { user: "user", text: question }]);
     setInput("");
-    // Simulierter Bot-Antwort-Flow auf Deutsch
     setTimeout(() => {
       setMessages((msgs) => [
         ...msgs,
@@ -40,11 +42,37 @@ const NexusChat = () => {
     }, 1200);
   };
 
+  // Button, wenn Chat geschlossen ist:
+  if (!open) {
+    return (
+      <button
+        onClick={() => setOpen(true)}
+        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-magenta to-turquoise text-white rounded-full shadow-xl flex items-center justify-center px-4 py-2 gap-2 hover:scale-105 transition-transform"
+        aria-label="Nexus Chat öffnen"
+      >
+        <Send size={20} />
+        <span className="font-bold text-lg">Nexus</span>
+      </button>
+    );
+  }
+
+  // Geöffnetes Chat-Fenster:
   return (
-    <div className="fixed bottom-6 right-6 z-50 w-[350px] max-w-full bg-card border border-white/10 rounded-xl shadow-xl flex flex-col overflow-hidden">
-      <div className="bg-gradient-to-r from-magenta to-turquoise p-4">
-        <h4 className="text-xl font-bold text-white">Nexus Chat</h4>
-        <span className="text-white text-xs opacity-80">Dein persönlicher Web-Agent</span>
+    <div className="fixed bottom-6 right-6 z-50 w-[350px] max-w-full bg-card border border-white/10 rounded-xl shadow-xl flex flex-col overflow-hidden animate-fade-in">
+      <div className="bg-gradient-to-r from-magenta to-turquoise p-4 flex items-center justify-between">
+        <div>
+          <h4 className="text-xl font-bold text-white">Nexus Chat</h4>
+          <span className="text-white text-xs opacity-80">
+            Dein persönlicher Web-Agent
+          </span>
+        </div>
+        <button
+          className="ml-2 hover:bg-white/20 rounded-full p-1 transition"
+          onClick={() => setOpen(false)}
+          aria-label="Nexus Chat schließen"
+        >
+          <X size={22} className="text-white" />
+        </button>
       </div>
       <div className="flex-1 p-4 space-y-3 overflow-y-auto max-h-80 bg-card">
         {messages.map((msg, idx) => (
@@ -88,3 +116,4 @@ const NexusChat = () => {
 };
 
 export default NexusChat;
+
