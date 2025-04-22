@@ -1,37 +1,44 @@
 
 import { PenLine, MonitorSmartphone, Code, MessageSquare, Palette, Tv } from "lucide-react";
+import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 
 const Services = () => {
   const services = [
     {
       title: "UI Design",
       icon: <PenLine className="h-8 w-8" />,
-      description: "Modernes, intuitives Design für herausragende Nutzererlebnisse."
+      description: "Modernes, intuitives Design für herausragende Nutzererlebnisse.",
+      details: "Wir entwickeln ästhetisch ansprechende, benutzerfreundliche Oberflächen mit klarer visueller Hierarchie. Unsere Designs sind responsiv und passen sich perfekt an alle Bildschirmgrößen an – vom Desktop bis zum Smartphone."
     },
     {
       title: "UX Design",
       icon: <MonitorSmartphone className="h-8 w-8" />,
-      description: "Kluge Nutzerführung & Interaktion, die konvertiert."
+      description: "Kluge Nutzerführung & Interaktion, die konvertiert.",
+      details: "Durch umfassende Nutzerforschung und Verhaltensstudien optimieren wir jeden Interaktionspunkt. Wir reduzieren Reibungsverluste und sorgen für intuitive Benutzerführung, die zu höheren Konversionsraten führt."
     },
     {
       title: "Digitale Strategie",
       icon: <Code className="h-8 w-8" />,
-      description: "Digitale Maßnahmen, die zu Ihren Geschäftszielen passen."
+      description: "Digitale Maßnahmen, die zu Ihren Geschäftszielen passen.",
+      details: "Wir analysieren Ihr Geschäftsmodell und entwickeln maßgeschneiderte digitale Strategien, die messbare Ergebnisse liefern. Vom Content-Management bis zur Suchmaschinenoptimierung – wir decken alle relevanten digitalen Kanäle ab."
     },
     {
       title: "Social Media",
       icon: <MessageSquare className="h-8 w-8" />,
-      description: "Starke Präsenz und Community-Aufbau auf allen Kanälen."
+      description: "Starke Präsenz und Community-Aufbau auf allen Kanälen.",
+      details: "Unsere Social-Media-Experten entwickeln plattformspezifische Inhalte, die Ihre Zielgruppe begeistern. Wir steigern Ihre Reichweite durch organische Strategien und gezieltes Community Management."
     },
     {
       title: "Designkonzept",
       icon: <Palette className="h-8 w-8" />,
-      description: "Markantes Corporate Design für durchgängige Wiedererkennung."
+      description: "Markantes Corporate Design für durchgängige Wiedererkennung.",
+      details: "Wir schaffen visuelle Identitäten, die Ihre Marke unverwechselbar machen. Von der Farbpalette bis zur Typografie – jedes Element wird sorgfältig ausgewählt, um Ihre Unternehmenswerte zu kommunizieren."
     },
     {
       title: "Medienintegration",
       icon: <Tv className="h-8 w-8" />,
-      description: "Videos, Animationen & interaktive Inhalte für maximale Wirkung."
+      description: "Videos, Animationen & interaktive Inhalte für maximale Wirkung.",
+      details: "Bewegtbild und interaktive Elemente steigern die Nutzerbindung. Wir integrieren nahtlos Videos, Animationen und interaktive Inhalte, die Ihre Botschaft lebendig werden lassen und Nutzer länger auf Ihrer Seite halten."
     }
   ];
 
@@ -50,18 +57,25 @@ const Services = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <div
-              key={index}
-              className="bg-black/20 backdrop-blur-sm rounded-2xl p-8 border border-white/5 hover:border-turquoise/50 transition-all duration-300 group hover:translate-y-[-5px]"
-            >
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br from-muted to-muted/50 mb-6 group-hover:from-turquoise/20 group-hover:to-magenta/20 transition-all duration-300">
-                <div className="text-foreground/80 group-hover:text-turquoise transition-colors duration-300">
-                  {service.icon}
+            <HoverCard key={index}>
+              <HoverCardTrigger asChild>
+                <div
+                  className="bg-black/20 backdrop-blur-sm rounded-2xl p-8 border border-white/5 hover:border-turquoise/50 transition-all duration-300 group hover:translate-y-[-5px] cursor-pointer"
+                >
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br from-muted to-muted/50 mb-6 group-hover:from-turquoise/20 group-hover:to-magenta/20 transition-all duration-300">
+                    <div className="text-foreground/80 group-hover:text-turquoise transition-colors duration-300">
+                      {service.icon}
+                    </div>
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">{service.title}</h3>
+                  <p className="text-foreground/70">{service.description}</p>
                 </div>
-              </div>
-              <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-              <p className="text-foreground/70">{service.description}</p>
-            </div>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-80 bg-black/90 border border-turquoise/20 text-foreground p-4">
+                <h4 className="font-bold text-lg mb-2 text-turquoise">{service.title}</h4>
+                <p>{service.details}</p>
+              </HoverCardContent>
+            </HoverCard>
           ))}
         </div>
       </div>

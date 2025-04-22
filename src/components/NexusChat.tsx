@@ -27,16 +27,64 @@ const NexusChat = () => {
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
+    
     const question = input;
     setMessages((msgs) => [...msgs, { user: "user", text: question }]);
     setInput("");
+    
+    // Intelligente Antworten basierend auf Schlüsselwörtern
     setTimeout(() => {
+      const lowerQuestion = question.toLowerCase();
+      let response = "";
+
+      if (lowerQuestion.includes("ui design") || lowerQuestion.includes("interface")) {
+        response = "Unser UI Design-Team erstellt moderne, intuitive Benutzeroberflächen, die nicht nur gut aussehen, sondern auch funktional sind. Wir legen besonderen Wert auf Responsive Design für alle Bildschirmgrößen und aktuelle Design-Trends.";
+      } 
+      else if (lowerQuestion.includes("ux design") || lowerQuestion.includes("nutzererlebnis")) {
+        response = "Beim UX Design konzentrieren wir uns auf das gesamte Nutzererlebnis. Durch umfangreiche Nutzerforschung und Tests optimieren wir jeden Interaktionspunkt, um ein nahtloses Erlebnis zu schaffen, das zu höheren Konversionsraten führt.";
+      }
+      else if (lowerQuestion.includes("strategie") || lowerQuestion.includes("digitale strategie")) {
+        response = "Unsere digitale Strategie basiert auf einer gründlichen Analyse deiner Geschäftsziele. Wir entwickeln maßgeschneiderte Lösungen, die organisches Wachstum und messbare Ergebnisse liefern - von SEO bis hin zu Content-Marketing.";
+      }
+      else if (lowerQuestion.includes("social") || lowerQuestion.includes("media") || lowerQuestion.includes("social media")) {
+        response = "Unser Social Media-Team entwickelt plattformspezifische Strategien für Facebook, Instagram, LinkedIn und TikTok. Wir erstellen ansprechende Inhalte, bauen Communities auf und steigern deine Online-Präsenz durch gezielte Kampagnen.";
+      }
+      else if (lowerQuestion.includes("design") || lowerQuestion.includes("designkonzept")) {
+        response = "Wir schaffen einzigartige visuelle Identitäten, die deine Marke unverwechselbar machen. Vom Logo bis zur Typografie entwickeln wir ein konsistentes Designkonzept, das deine Unternehmenswerte perfekt kommuniziert.";
+      }
+      else if (lowerQuestion.includes("medien") || lowerQuestion.includes("video") || lowerQuestion.includes("animation")) {
+        response = "Wir integrieren Videos, Animationen und interaktive Inhalte, die deine Botschaft lebendig werden lassen. Diese Medienelemente steigern die Nutzerbindung und halten Besucher länger auf deiner Seite.";
+      }
+      else if (lowerQuestion.includes("kontakt") || lowerQuestion.includes("erreichen")) {
+        response = "Du kannst uns jederzeit über unser Kontaktformular, per E-Mail an info@nexus-agency.de oder telefonisch unter +49 30 12345678 erreichen. Wir freuen uns darauf, von dir zu hören!";
+      }
+      else if (lowerQuestion.includes("preis") || lowerQuestion.includes("kosten")) {
+        response = "Unsere Preise variieren je nach Projektumfang und deinen individuellen Anforderungen. Wir erstellen dir gerne ein maßgeschneidertes Angebot nach einem ersten kostenlosen Beratungsgespräch.";
+      }
+      else if (lowerQuestion.includes("team") || lowerQuestion.includes("mitarbeiter")) {
+        response = "Unser Team besteht aus erfahrenen Designern, Entwicklern, Strategen und Content-Spezialisten. Jeder von uns bringt jahrelange Erfahrung in der digitalen Branche mit und arbeitet leidenschaftlich an innovativen Lösungen.";
+      }
+      else if (lowerQuestion.includes("hallo") || lowerQuestion.includes("hey") || lowerQuestion.includes("hi")) {
+        response = "Hallo! Schön, dass du da bist. Wie kann ich dir heute helfen? Du kannst mich alles zu unseren digitalen Dienstleistungen fragen.";
+      }
+      else {
+        // Abwechslungsreiche allgemeine Antworten
+        const generalResponses = [
+          "Danke für deine Frage! Wir bieten umfassende digitale Lösungen von UI/UX Design über digitale Strategie bis hin zu Social Media. Möchtest du zu einem bestimmten Bereich mehr erfahren?",
+          "Interessante Frage! Wir sind eine Full-Service-Digitalagentur mit Fokus auf moderne Webtechnologien und ansprechendes Design. Kann ich dir zu einem unserer Leistungsbereiche mehr Details geben?",
+          "Das ist ein spannendes Thema! Unsere Experten verbinden kreatives Design mit technischer Exzellenz für optimale digitale Ergebnisse. Zu welchem unserer Services möchtest du mehr wissen?",
+          "Gute Frage! Wir helfen Unternehmen dabei, im digitalen Raum erfolgreich zu sein. Von der Konzeption bis zur Umsetzung begleiten wir dich bei jedem Schritt. Was interessiert dich besonders?"
+        ];
+        
+        const randomIndex = Math.floor(Math.random() * generalResponses.length);
+        response = generalResponses[randomIndex];
+      }
+
       setMessages((msgs) => [
         ...msgs,
         {
           user: "bot",
-          text:
-            "Danke für deine Frage! Leider kann ich diese gerade nicht beantworten. Aber unser Team meldet sich zeitnah bei dir.",
+          text: response,
         },
       ]);
     }, 1200);
@@ -116,4 +164,3 @@ const NexusChat = () => {
 };
 
 export default NexusChat;
-
