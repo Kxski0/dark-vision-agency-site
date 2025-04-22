@@ -2,10 +2,12 @@
 import { Button } from "./ui/button";
 import { CheckCircle } from "lucide-react";
 import * as React from "react";
-import EmailDialog from "./EmailDialog";
 
-const CallToAction = () => {
-  const [dialogOpen, setDialogOpen] = React.useState(false);
+interface CallToActionProps {
+  onRequestDialog: () => void;
+}
+
+const CallToAction: React.FC<CallToActionProps> = ({ onRequestDialog }) => {
   const benefits = [
     "Professioneller Webauftritt",
     "Mehr Kundenanfragen",
@@ -35,14 +37,12 @@ const CallToAction = () => {
           <Button
             size="lg"
             className="bg-gradient-to-r from-magenta to-turquoise text-white hover:shadow-lg hover:shadow-magenta/25 transition-all"
-            onClick={() => setDialogOpen(true)}
+            onClick={onRequestDialog}
           >
             Jetzt Projekt starten
           </Button>
         </div>
       </div>
-      {/* Email-Dialog */}
-      <EmailDialog open={dialogOpen} onOpenChange={setDialogOpen} />
     </section>
   );
 };

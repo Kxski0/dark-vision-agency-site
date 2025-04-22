@@ -42,13 +42,13 @@ const NGLogo = ({
       >
         N
       </text>
-      {/* Kleineres und leicht nach rechts/unten versetztes G */}
+      {/* Kleineres G, weiter nach rechts/unten, kleiner als vorher */}
       <text
-        x="22"
-        y="55"
+        x="27"
+        y="54"
         fontFamily="'Playfair Display', serif"
         fontWeight="700"
-        fontSize="29"
+        fontSize="22"
         fill="url(#nexus-ng-gradient)"
         letterSpacing="0.5"
         style={{

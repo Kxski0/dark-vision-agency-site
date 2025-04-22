@@ -5,7 +5,11 @@ import { Button } from "./ui/button";
 import { cn } from "../lib/utils";
 import NGLogo from "./NGLogo";
 
-const Navbar = () => {
+interface NavbarProps {
+  onKontaktClick: () => void;
+}
+
+const Navbar = ({ onKontaktClick }: NavbarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -42,12 +46,13 @@ const Navbar = () => {
           <a href="#" className="text-foreground/80 hover:text-turquoise transition-all">
             Portfolio
           </a>
-          <a href="#" className="text-foreground/80 hover:text-turquoise transition-all">
+          <a href="#ueber-uns" className="text-foreground/80 hover:text-turquoise transition-all">
             Über uns
           </a>
           <Button
             variant="outline"
             className="border-turquoise text-turquoise hover:bg-turquoise hover:text-black transition-all"
+            onClick={onKontaktClick}
           >
             Kontakt
           </Button>
@@ -89,7 +94,7 @@ const Navbar = () => {
               Portfolio
             </a>
             <a
-              href="#"
+              href="#ueber-uns"
               className="text-foreground/80 hover:text-turquoise transition-all"
               onClick={() => setIsMenuOpen(false)}
             >
@@ -98,6 +103,10 @@ const Navbar = () => {
             <Button
               variant="outline"
               className="border-turquoise text-turquoise hover:bg-turquoise hover:text-black transition-all w-full"
+              onClick={() => {
+                setIsMenuOpen(false);
+                onKontaktClick();
+              }}
             >
               Kontakt
             </Button>

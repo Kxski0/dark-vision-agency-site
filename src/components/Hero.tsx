@@ -2,11 +2,12 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import * as React from "react";
-import EmailDialog from "./EmailDialog";
 
-const Hero = () => {
-  const [dialogOpen, setDialogOpen] = React.useState(false);
+interface HeroProps {
+  onRequestDialog: () => void;
+}
 
+const Hero: React.FC<HeroProps> = ({ onRequestDialog }) => {
   return (
     <section className="min-h-screen flex items-center relative overflow-hidden pt-20">
       {/* Gradient background effects */}
@@ -35,7 +36,7 @@ const Hero = () => {
             <Button 
               size="lg" 
               className="bg-gradient-to-r from-turquoise to-lime text-black hover:text-white hover:shadow-lg hover:shadow-turquoise/25 transition-all group"
-              onClick={() => setDialogOpen(true)}
+              onClick={onRequestDialog}
             >
               Jetzt starten
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -44,16 +45,13 @@ const Hero = () => {
               size="lg" 
               variant="outline" 
               className="border-foreground/20 hover:border-magenta hover:text-magenta transition-all"
-              onClick={() => setDialogOpen(true)}
+              onClick={onRequestDialog}
             >
               Projekte ansehen
             </Button>
           </div>
         </div>
       </div>
-
-      {/* Email-Dialog wird global verwendet */}
-      <EmailDialog open={dialogOpen} onOpenChange={setDialogOpen} />
     </section>
   );
 };
