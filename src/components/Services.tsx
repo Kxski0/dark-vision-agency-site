@@ -69,31 +69,47 @@ const Services = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Fokusiert das Popup, damit es IMMER komplett sichtbar bleibt (notfalls Overlay über andere Karten)
+  const getPopupPositionClass = (idx: number) => {
+    if (cols === 1) return "left-1/2 -translate-x-1/2 "; // Mobil & schmal
+    if (isLastRow(idx)) return "bottom-full mb-3";
+    return "top-full mt-3";
+  };
+
   return (
     <section id="services" className="py-20 md:py-32 relative overflow-hidden bg-dark">
-      {/* Animierte Hintergrund-Lichter mit verbesserten Animationen */}
-      <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-turquoise/15 rounded-full filter blur-[120px] pointer-events-none animate-[float_20s_ease-in-out_infinite]"></div>
-      <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-lime/15 rounded-full filter blur-[120px] pointer-events-none animate-[float_reverse_25s_ease-in-out_infinite]"></div>
-      
-      {/* Zusätzliche bewegte Lichter für mehr Animation */}
-      <div className="absolute top-1/3 left-1/4 w-1/4 h-1/4 bg-magenta/10 rounded-full filter blur-[150px] pointer-events-none animate-[float_15s_ease-in-out_infinite_3s]"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-1/5 h-1/5 bg-turquoise/10 rounded-full filter blur-[100px] pointer-events-none animate-[float_reverse_18s_ease-in-out_infinite_5s]"></div>
-      
-      {/* Verbesserte Animation Keyframes */}
+      {/* Animierte, bewegende Hintergrund-Lichter */}
+      {/* Neue, auf Sicht gut bewegende Animationen (keyframes direkt im <style>) */}
+      <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-turquoise/15 rounded-full filter blur-[120px] pointer-events-none animate-floating-light-1"></div>
+      <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-lime/15 rounded-full filter blur-[120px] pointer-events-none animate-floating-light-2"></div>
+      <div className="absolute top-1/3 left-1/4 w-1/4 h-1/4 bg-magenta/10 rounded-full filter blur-[150px] pointer-events-none animate-floating-light-3"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-1/5 h-1/5 bg-turquoise/10 rounded-full filter blur-[100px] pointer-events-none animate-floating-light-4"></div>
       <style>
         {`
-        @keyframes float {
-          0%, 100% { transform: translateY(0) translateX(0); }
-          25% { transform: translateY(-40px) translateX(30px); }
-          50% { transform: translateY(-80px) translateX(10px); }
-          75% { transform: translateY(-30px) translateX(-20px); }
+        @keyframes floating-light-1 {
+          0%,100% { transform: translateY(0px) translateX(0px) scale(1);}
+          40%     { transform: translateY(-54px) translateX(-10px) scale(1.12);}
+          70%     { transform: translateY(-100px) translateX(6px) scale(0.97);}
         }
-        @keyframes float_reverse {
-          0%, 100% { transform: translateY(0) translateX(0); }
-          25% { transform: translateY(40px) translateX(-30px); }
-          50% { transform: translateY(70px) translateX(-10px); }
-          75% { transform: translateY(30px) translateX(40px); }
+        @keyframes floating-light-2 {
+          0%,100% { transform: translateY(0px) translateX(0px) scale(1);}
+          50%     { transform: translateY(50px) translateX(56px) scale(1.16);}
+          80%     { transform: translateY(80px) translateX(10px) scale(1.04);}
         }
+        @keyframes floating-light-3 {
+          0%,100% { transform: translateY(0px) translateX(0px) scale(1);}
+          60%     { transform: translateY(28px) translateX(48px) scale(1.25);}
+          85%     { transform: translateY(-36px) translateX(-18px) scale(1.1);}
+        }
+        @keyframes floating-light-4 {
+          0%,100% { transform: translateY(0px) translateX(0px) scale(1);}
+          30%     { transform: translateY(34px) translateX(-38px) scale(0.93);}
+          65%     { transform: translateY(85px) translateX(18px) scale(1.04);}
+        }
+        .animate-floating-light-1 { animation: floating-light-1 16s ease-in-out infinite alternate; }
+        .animate-floating-light-2 { animation: floating-light-2 22s ease-in-out infinite alternate-reverse; }
+        .animate-floating-light-3 { animation: floating-light-3 14s ease-in-out infinite alternate; }
+        .animate-floating-light-4 { animation: floating-light-4 19s ease-in-out infinite alternate-reverse; }
         `}
       </style>
       <div className="container mx-auto px-4 md:px-6">
@@ -106,63 +122,59 @@ const Services = () => {
           </p>
         </div>
         <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8`}>
-          {services.map((service, index) => {
-            const lastRow = isLastRow(index);
-            return (
+          {services.map((service, index) => (
+            <div
+              key={index}
+              className="relative group"
+              onMouseEnter={() => { if (!isTouch) setOpenedIdx(index); }}
+              onMouseLeave={() => { if (!isTouch) setOpenedIdx(null); }}
+              onClick={() => { if (isTouch) setOpenedIdx(openedIdx === index ? null : index); }}
+            >
               <div
-                key={index}
-                className="relative group"
-                onMouseEnter={() => {
-                  if (!isTouch) setOpenedIdx(index);
-                }}
-                onMouseLeave={() => {
-                  if (!isTouch) setOpenedIdx(null);
-                }}
-                onClick={() => {
-                  if (isTouch) setOpenedIdx(openedIdx === index ? null : index);
+                className="bg-black/20 backdrop-blur-sm rounded-2xl p-8 border border-white/5 hover:border-turquoise/50 transition-all duration-300 hover:translate-y-[-5px] cursor-pointer relative"
+              >
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br from-muted to-muted/50 mb-6 group-hover:from-turquoise/20 group-hover:to-magenta/20 transition-all duration-300">
+                  <div className="text-foreground/80 group-hover:text-turquoise transition-colors duration-300">
+                    {service.icon}
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold mb-3">{service.title}</h3>
+                <p className="text-foreground/70">{service.description}</p>
+              </div>
+              {/* Popup: immer sichtbar und oberhalb der Karte, mit zIndex */}
+              <div
+                className={`
+                  absolute left-0 right-0 z-50
+                  ${openedIdx === index ? "opacity-100 animate-fade-in pointer-events-auto" : "opacity-0 pointer-events-none"}
+                  transition-all duration-200 ease-in-out
+                  ${getPopupPositionClass(index)}
+                `}
+                style={{
+                  minWidth: 240,
+                  maxWidth: 340,
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  textAlign: "left",
                 }}
               >
                 <div
-                  className="bg-black/20 backdrop-blur-sm rounded-2xl p-8 border border-white/5 hover:border-turquoise/50 transition-all duration-300 hover:translate-y-[-5px] cursor-pointer relative"
+                  className="bg-[#101826]/95 border border-turquoise/40 rounded-xl text-foreground p-4 shadow-2xl font-inter"
+                  style={{
+                    color: "#fff",
+                    textShadow: "0 0 16px #191922, 0 2px 18px rgba(0,0,0,0.36)",
+                    backdropFilter: "blur(6px)",
+                    fontSize: 16,
+                    boxShadow: "0 10px 32px rgba(10, 239, 255, 0.22)",
+                    background: "rgba(22, 30, 46, 0.92)",
+                    zIndex: 60,
+                  }}
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br from-muted to-muted/50 mb-6 group-hover:from-turquoise/20 group-hover:to-magenta/20 transition-all duration-300">
-                    <div className="text-foreground/80 group-hover:text-turquoise transition-colors duration-300">
-                      {service.icon}
-                    </div>
-                  </div>
-                  <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-                  <p className="text-foreground/70">{service.description}</p>
-                </div>
-                {/* Popup-Box für Details: Verbesserte Sichtbarkeit für die letzte Reihe */}
-                <div
-                  className={`
-                    absolute left-0 right-0 z-30
-                    ${openedIdx === index ? "opacity-100" : "opacity-0 pointer-events-none"}
-                    transition-opacity duration-200 ease-in-out
-                  `}
-                  style={
-                    lastRow
-                      ? { bottom: "100%", marginBottom: 12, top: "auto", marginTop: 0 }
-                      : { top: "100%", marginTop: 12, bottom: "auto", marginBottom: 0 }
-                  }
-                >
-                  <div className="bg-[#101826]/95 border border-turquoise/40 rounded-xl text-foreground p-4 shadow-2xl animate-fade-in font-inter"
-                    style={{
-                      color: "#fff",
-                      textShadow: "0 2px 18px rgba(0,0,0,0.42)",
-                      backdropFilter: "blur(6px)",
-                      fontSize: 16,
-                      boxShadow: "0 10px 25px rgba(10, 239, 255, 0.15)",
-                      background: "rgba(22, 30, 46, 0.92)"
-                    }}
-                  >
-                    <h4 className="font-bold text-lg mb-2 text-turquoise">{service.title}</h4>
-                    <p>{service.details}</p>
-                  </div>
+                  <h4 className="font-bold text-lg mb-2 text-turquoise">{service.title}</h4>
+                  <p>{service.details}</p>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </section>
