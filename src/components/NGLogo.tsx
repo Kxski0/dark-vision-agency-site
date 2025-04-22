@@ -2,8 +2,6 @@
 import React from "react";
 
 // Wichtig: Font Playfair Display einbinden! (siehe tailwind.config)
-// Die Farben wie bei Überschrift (Gradient von turquoise zu magenta).
-// N und G werden in der Mitte übereinander gelegt und leicht versetzt (SVG).
 
 const NGLogo = ({
   className = "",
@@ -29,10 +27,10 @@ const NGLogo = ({
           <stop offset="1" stopColor="#FF00D6" />
         </linearGradient>
       </defs>
-      {/* Buchstabe N */}
+      {/* Dominantes N */}
       <text
-        x="6"
-        y="38"
+        x="7"
+        y="39"
         fontFamily="'Playfair Display', serif"
         fontWeight="700"
         fontSize="38"
@@ -44,15 +42,15 @@ const NGLogo = ({
       >
         N
       </text>
-      {/* Buchstabe G überlappt leicht darunter */}
+      {/* Kleineres und leicht nach rechts/unten versetztes G */}
       <text
-        x="16"
-        y="57"
+        x="22"
+        y="55"
         fontFamily="'Playfair Display', serif"
         fontWeight="700"
-        fontSize="42"
+        fontSize="29"
         fill="url(#nexus-ng-gradient)"
-        letterSpacing="1"
+        letterSpacing="0.5"
         style={{
           fontStyle: "normal",
         }}
@@ -64,4 +62,3 @@ const NGLogo = ({
 );
 
 export default NGLogo;
-
