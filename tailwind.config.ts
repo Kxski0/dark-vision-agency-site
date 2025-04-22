@@ -119,6 +119,7 @@ export default {
 			fontFamily: {
 				'space': ['Space Grotesk', 'sans-serif'],
 				'inter': ['Inter', 'sans-serif'],
+				'playfair': ['Playfair Display', 'serif'],
 			},
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -128,3 +129,4 @@ export default {
 	},
 	plugins: [require("tailwindcss-animate")],
 } satisfies Config;
+
