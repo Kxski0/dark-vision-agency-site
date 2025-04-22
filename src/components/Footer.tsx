@@ -1,8 +1,8 @@
-
 import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import React from "react";
+import NGLogo from "./NGLogo";
 
 const socialLinks = [
   {
@@ -39,9 +39,12 @@ const Footer = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <div>
-            <h3 className="text-2xl font-bold font-space bg-clip-text text-transparent bg-gradient-to-r from-turquoise to-magenta mb-6">
-              VISION
-            </h3>
+            <div className="flex items-center mb-6">
+              <NGLogo size={32} />
+              <h3 className="text-2xl font-bold font-space bg-clip-text text-transparent bg-gradient-to-r from-turquoise to-magenta ml-2">
+                NEXUS GENERATION
+              </h3>
+            </div>
             <p className="text-foreground/70 mb-6">
               Wir schaffen zukunftssichere Web-Erlebnisse, die Unternehmen voranbringen und Nutzer begeistern.
             </p>
@@ -173,7 +176,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="pt-8 border-t border-white/5 text-center text-foreground/50 text-sm">
-          <p>© {new Date().getFullYear()} Vision Webdesign Agentur. Alle Rechte vorbehalten.</p>
+          <p>© {new Date().getFullYear()} Nexus Generation Webdesign Agentur. Alle Rechte vorbehalten.</p>
         </div>
       </div>
     </footer>

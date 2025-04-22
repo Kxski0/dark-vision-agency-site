@@ -1,4 +1,4 @@
-
+import React, { useState } from "react";
 import { PenLine, MonitorSmartphone, Code, MessageSquare, Palette, Tv } from "lucide-react";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 
@@ -42,6 +42,10 @@ const Services = () => {
     }
   ];
 
+  // State für mobiles/Touch-Klick-Verhalten:
+  const [openedIdx, setOpenedIdx] = useState<number | null>(null);
+  const isTouch = typeof window !== "undefined" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
+
   return (
     <section id="services" className="py-20 md:py-32 relative bg-gradient-to-b from-dark to-black/90">
       <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-turquoise/10 rounded-full filter blur-[120px]"></div>
@@ -56,11 +60,21 @@ const Services = () => {
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <HoverCard key={index}>
-              <HoverCardTrigger asChild>
+          {services.map((service, index) => {
+            // Desktop: Hover per HoverCard, Mobil: per onClick
+            return (
+              <div key={index}>
                 <div
-                  className="bg-black/20 backdrop-blur-sm rounded-2xl p-8 border border-white/5 hover:border-turquoise/50 transition-all duration-300 group hover:translate-y-[-5px] cursor-pointer"
+                  className={
+                    "bg-black/20 backdrop-blur-sm rounded-2xl p-8 border border-white/5 hover:border-turquoise/50 transition-all duration-300 group hover:translate-y-[-5px] cursor-pointer relative"
+                  }
+                  onClick={() => {
+                    // Toggle nur auf Touch-Geräten
+                    if (isTouch) setOpenedIdx(openedIdx === index ? null : index);
+                  }}
+                  onMouseLeave={() => {
+                    if (isTouch) setOpenedIdx(null);
+                  }}
                 >
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br from-muted to-muted/50 mb-6 group-hover:from-turquoise/20 group-hover:to-magenta/20 transition-all duration-300">
                     <div className="text-foreground/80 group-hover:text-turquoise transition-colors duration-300">
@@ -69,14 +83,23 @@ const Services = () => {
                   </div>
                   <h3 className="text-xl font-bold mb-3">{service.title}</h3>
                   <p className="text-foreground/70">{service.description}</p>
+                  {/* Desktop/HoverCard */}
+                  <div
+                    className={`
+                      absolute left-0 right-0 z-20 
+                      ${(!isTouch ? "group-hover:block" : (openedIdx === index ? "block" : "hidden"))}
+                      hidden transition-all 
+                    `}
+                  >
+                    <div className="mt-4 bg-black/90 border border-turquoise/20 rounded-xl text-foreground p-4 shadow-lg">
+                      <h4 className="font-bold text-lg mb-2 text-turquoise">{service.title}</h4>
+                      <p>{service.details}</p>
+                    </div>
+                  </div>
                 </div>
-              </HoverCardTrigger>
-              <HoverCardContent className="w-80 bg-black/90 border border-turquoise/20 text-foreground p-4">
-                <h4 className="font-bold text-lg mb-2 text-turquoise">{service.title}</h4>
-                <p>{service.details}</p>
-              </HoverCardContent>
-            </HoverCard>
-          ))}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
